@@ -1,0 +1,7 @@
+go 1.18
+
+use ./service/fac
+use ./service/fib
+use ./service/greetings
+use ./service/people
+
