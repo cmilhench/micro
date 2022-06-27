@@ -1,4 +1,4 @@
-name     = consignments-service
+name     = gateway-service
 revision ?= $(shell git describe --tags --long --dirty --always)
 
 export AWS_DEFAULT_REGION = $(region)
@@ -47,7 +47,7 @@ lint:
 
 test: lint
 	$(call cyan, "Testing...")
-	@go test -cover -v ./...
+	@go test -short -cover -v ./...
 .PHONY: test
 
 start: test ## Run locally
@@ -73,11 +73,25 @@ clean:
 	@git clean --dry-run
 .PHONY: clean
 
-amqp:
+## --
+
+dev-db:
+	@docker run -d --rm --hostname rabbit.local --name okapi-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management-alpine
+.PHONY: db
+
+add:
 	@bash -c "set -a && source .env && set +a && \
-		go run ./cmd/amqp \
+		go run ./cmd/example/add \
 	"
-.PHONY: amqp
+.PHONY: add
+
+log:
+	@bash -c "set -a && source .env && set +a && \
+		go run ./cmd/example/log \
+	"
+.PHONY: log
+
+## --
 
 define check-dependency
 	$(if $(shell command -v $(1)),,$(error Make sure $(1) is installed))

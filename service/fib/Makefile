@@ -73,6 +73,12 @@ clean:
 	@git clean --dry-run
 .PHONY: clean
 
+amqp:
+	@bash -c "set -a && source .env && set +a && \
+		go run ./cmd/amqp \
+	"
+.PHONY: amqp
+
 define check-dependency
 	$(if $(shell command -v $(1)),,$(error Make sure $(1) is installed))
 endef

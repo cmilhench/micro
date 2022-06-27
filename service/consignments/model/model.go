@@ -1,5 +1,7 @@
 package model
 
+// One Model, One Responsibility.
+// TODO: Use seperate models for data models and rpc models
 type Container struct {
 	ID         string `json:"id,omitempty"`
 	CustomerID string `json:"customer_id,omitempty"`

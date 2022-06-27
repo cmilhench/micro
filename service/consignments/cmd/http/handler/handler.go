@@ -82,6 +82,7 @@ func (h *consignmentsHandler) CreateConsignment() http.HandlerFunc {
 			log.Printf("failed to unmarshal json, %v\n", err)
 			return
 		}
+		// TODO: move validation logig to the service
 		if payload.Weight == 0 {
 			err := &exceptions.Error{Kind: exceptions.Validation, Param: "weight", Inner: exceptions.MissingField("weight")}
 			log.Printf("failed validate body, %v\n", err)
@@ -92,6 +93,7 @@ func (h *consignmentsHandler) CreateConsignment() http.HandlerFunc {
 		if err != nil {
 			// if it's something that the caller can handle such as a unique db
 			// constraint return an appropriate error e.g. exceptions.Exist
+			// TODO: move to the service
 			err := &exceptions.Error{Kind: exceptions.Internal, Inner: err}
 			WriteError(w, err)
 			log.Printf("failed to create consignment, %v\n", err)
