@@ -1,0 +1,16 @@
+.DS_Store
+.vscode/
+Dockerfile
+docker-compose.yml
+.dockerignore
+node_modules
+npm-debug.log
+coverage
+.git
+.gitignore
+README.md
+.eslintrc.js
+jest.config.js
+*.test.js
+.env
+.env.*
